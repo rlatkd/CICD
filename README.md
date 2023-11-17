@@ -1,42 +1,19 @@
-# 개인 Trouble Shooting
+# 빌드 및 배포 Trouble Shooting
 
-## 1. 해당 경로에 중복된 package.json이 이미 있음
-
-```bash
-/var/www/html/package.json.lock
-
-The deployment failed because a specified file already exists at this location
-```
-
-### appspec.yml
-
-```yaml
-version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /var/www/html
-
-    # 이 부분 추가 #
-    overwrite: yes
-file_exists_behavior: OVERWRITE
-################
-
-hooks:
-  BeforeInstall:
-    - location: scripts/before_install.sh
-      runas: root
-  AfterInstall:
-    - location: scripts/after_install.sh
-      runas: root
-```
-
-## 2. React hook 의존성 문제
+## 1. React hook 의존성 문제
 
 ```bash
-BoardDetail.js line24, BoardList.js line24
-React Hook useEffect Has a Missing Dependency
+Failed to compile.
+
+[eslint]
+src/board/BoardDetail.js
+  Line 25:8:  React Hook useEffect has a missing dependency: 'boardIdx'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+src/board/BoardList.js
+  Line 25:8:  React Hook useEffect has a missing dependency: 'history'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
 ```
+
+### BoardDetail.js, BoardList.js 코드 수정
 
 ```jsx
 ...
@@ -61,9 +38,40 @@ useEffect(() => {
 ...
 ```
 
+## 2. 해당 경로에 중복된 package.json이 이미 있음
+
+```bash
+/var/www/html/package.json.lock
+
+The deployment failed because a specified file already exists at this location
+```
+
+### appspec.yml 템플릿 수정
+
+```yaml
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html
+
+    # 이 부분 추가 #
+    overwrite: yes
+file_exists_behavior: OVERWRITE
+################
+
+hooks:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      runas: root
+  AfterInstall:
+    - location: scripts/after_install.sh
+      runas: root
+```
+
 ## 3. Permission 에러
 
-## deploy.yml
+### deploy.yml 템플릿 수정
 
 ```yaml
 nv:
