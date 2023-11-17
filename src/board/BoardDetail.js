@@ -21,7 +21,7 @@ function BoardDetail({ match, history }) {
                 setContents(body.contents);    
             })
             .catch(error => console.log(error));
-   
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handlerClickList = () => {
