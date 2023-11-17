@@ -1,3 +1,0 @@
-echo 'Running set_owner'
-
-chown -R ubuntu /var/www/html
