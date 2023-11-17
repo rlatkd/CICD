@@ -8,6 +8,7 @@ import Login from './board/Login';
 function App() {
   return (
     <>
+      <h1>NEW VERSION</h1>
       <Link to="/login">로그인</Link>
       &nbsp;|&nbsp;
       <Link to="/board">게시판</Link>
