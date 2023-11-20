@@ -15,7 +15,7 @@ src/board/BoardList.js
 
 ### BoardDetail.js, BoardList.js 코드 수정
 
-```jsx
+```
 ...
 ...
 useEffect(() => {
@@ -48,14 +48,14 @@ The deployment failed because a specified file already exists at this location
 
 ### appspec.yml 템플릿 수정
 
-```yaml
+```
 version: 0.0
 os: linux
 files:
   - source: /
     destination: /var/www/html
 
-    # 이 부분 추가 #
+# 이 부분 추가 #
     overwrite: yes
 file_exists_behavior: OVERWRITE
 ################
@@ -85,7 +85,7 @@ env:
 permissions:
   contents: read
 
-  # 이 부분 추가 #
+# 이 부분 추가 #
   id-token: write
 ################
 
