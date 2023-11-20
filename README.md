@@ -131,4 +131,12 @@ jobs:
 
 ### 캐시 사용 전
 
-<img src=''>
+<img src='https://github.com/rlatkd/CICD/blob/main/assets/beforeCache.jpg'>
+
+### 캐시 사용 후
+
+<img src='https://github.com/rlatkd/CICD/blob/main/assets/afterCache.jpg'>
+
+### S3로 전송한 파일에 불필요한 파일 포함 여부
+
+<img src='https://github.com/rlatkd/CICD/blob/main/assets/bucket.jpg'>
