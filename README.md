@@ -74,7 +74,11 @@ hooks:
 ### deploy.yml 템플릿 수정
 
 ```yaml
-nv:
+
+---
+
+---
+env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: cicd-bucket-rlatkd
   CODE_DEPLOY_APPLICATION_NAME: CicdApplication
@@ -91,4 +95,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: production
+---
+```
+
+## 4. 배포 시간 단축
+
+### deploy.yml 템플릿 수정
+
+```yaml
+- name: Setup Cache					⇐ 캐시 액션 설치 및 설정 → 배포 시간 단축
+  uses: actions/cache@v3
+  id: npm-cache
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+- if: steps.npm-cache.outputs.cache-hit == 'true'	⇐ 캐싱 여부를 출력
+  run: echo 'npm cache hit!'
+- if: steps.npm-cache.outputs.cache-hit != 'true'
+  run: echo 'npm cache missed!'
+
+- name: Install Dependencies				⇐ 캐시가 없거나 다른 경우에만 모듈 설치
+  if: steps.cache.outputs.cache-hit != 'true'
+  run: npm install
+
+- name: npm build						⇐ 빌드
+  run: npm run build
+
+- name: Remove template files				⇐ 실행과 관련 없는 파일/디렉터리 삭제 → 배포 시간 단축
+  run: rm -rf node_modules public src index.html package*
 ```
