@@ -1,6 +1,8 @@
-# 빌드 및 배포 Trouble Shooting
+# Trouble Shooting 및 개선점
 
-## 1. React hook 의존성 문제
+## 1. Trouble Shooting
+
+### React hook 의존성 문제
 
 ```bash
 Failed to compile.
@@ -13,7 +15,7 @@ src/board/BoardList.js
   Line 25:8:  React Hook useEffect has a missing dependency: 'history'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
 ```
 
-### BoardDetail.js, BoardList.js 코드 수정
+#### BoardDetail.js, BoardList.js 코드 수정
 
 ```
 ...
@@ -38,7 +40,7 @@ useEffect(() => {
 ...
 ```
 
-## 2. 해당 경로에 중복된 package.json이 이미 있음
+### 해당 경로에 중복된 package.json이 이미 있음
 
 ```bash
 /var/www/html/package.json.lock
@@ -46,7 +48,7 @@ useEffect(() => {
 The deployment failed because a specified file already exists at this location
 ```
 
-### appspec.yml 템플릿 수정
+#### appspec.yml 템플릿 수정
 
 ```
 version: 0.0
@@ -69,9 +71,9 @@ hooks:
       runas: root
 ```
 
-## 3. Permission 에러
+### Permission 에러
 
-### deploy.yml 템플릿 수정
+#### deploy.yml 템플릿 수정
 
 ```
 ...
@@ -97,9 +99,11 @@ jobs:
 ...
 ```
 
-## 4. 배포 시간 단축
+## 2. 개선점
 
-### deploy.yml 템플릿 수정
+### 배포 시간 단축
+
+#### deploy.yml 템플릿 수정
 
 ```
 ...
